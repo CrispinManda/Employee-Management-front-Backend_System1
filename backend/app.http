@@ -1,0 +1,32 @@
+POST http://localhost:4400/employee/register
+Content-Type: application/json
+
+{
+    "name": "Daniel Kitheka",
+    "email": "dankinyi99@gmail.com",
+    "phone_no": "0767876562",
+    "id_no": 633784563,
+    "KRA_PIN": "ADjCC32XXY3",
+    "NHIF_NO": "119z0784J43",
+    "NSSF_NO": "kdhu787n9DS",
+    "password": "12345678"
+}
+
+
+### login 
+POST http://localhost:4400/employee/login
+Content-Type: application/json
+
+{
+    "email": "jane@yopmail.com",
+    "password": "10345678"
+}
+
+### fetching employees
+GET http://localhost:4400/employee/
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZV9pZCI6IjBhZGJiM2I1LWRlYWQtNDQ4Zi05Y2ExLTQ0ZjkzZDBlNTUyNyIsIm5hbWUiOiJKYW5lIERvZSIsImVtYWlsIjoiamFuZUB5b3BtYWlsLmNvbSIsInJvbGUiOiJlbXBsb3llZSIsImlhdCI6MTY5ODc1MzE4NSwiZXhwIjoxNjk4NzU2Nzg1fQ.N1VFHZwY_tpH85fvcppcmUfk6LsM8nK5mHhnuMPCxt8
+
+
+### checking user details
+GET http://localhost:4400/employee/check_user_details
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZV9pZCI6IjBhZGJiM2I1LWRlYWQtNDQ4Zi05Y2ExLTQ0ZjkzZDBlNTUyNyIsIm5hbWUiOiJKYW5lIERvZSIsImVtYWlsIjoiamFuZUB5b3BtYWlsLmNvbSIsInJvbGUiOiJlbXBsb3llZSIsImlhdCI6MTY5ODc0ODAwNiwiZXhwIjoxNjk4NzUxNjA2fQ.3JhyDZ4IBYU20ztcl_kPm5VF-gi8e7AEXXWZXvfYvHo
