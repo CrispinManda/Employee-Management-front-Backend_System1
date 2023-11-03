@@ -13,28 +13,24 @@ const dbhelper = new Connection
 
 export const registerEmployee = async(req:Request, res: Response) =>{
     try {
-        let {name, email, phone_no, id_no, KRA_PIN, NHIF_NO, NSSF_NO, password} = req.body
+        let {name, email, password} = req.body
 
         let employee_id = v4()
 
         const hashedPwd = await bcrypt.hash(password, 5)
 
-        // const pool = await mssql.connect(sqlConfig)
+        const pool = await mssql.connect(sqlConfig)
 
         // let result = await pool.request()
         // .input("employee_id", mssql.VarChar, employee_id) 
         // .input("name", mssql.VarChar, name)
         // .input("email", mssql.VarChar, email)
-        // .input("phone_no", mssql.VarChar, phone_no)
-        // .input("id_no", mssql.Int, id_no)
-        // .input("KRA_PIN", mssql.VarChar, KRA_PIN)
-        // .input("NSSF_NO", mssql.VarChar, NSSF_NO)
-        // .input("NHIF_NO", mssql.VarChar, NHIF_NO) 
+
         // .input("password", mssql.VarChar, hashedPwd)
         // .execute('registerEmployee')
         
         let result = dbhelper.execute('registerEmployee', {
-            employee_id, name, email, phone_no, id_no, KRA_PIN, NHIF_NO, NSSF_NO, password: hashedPwd
+            employee_id, name, email,password: hashedPwd
         })
         
 

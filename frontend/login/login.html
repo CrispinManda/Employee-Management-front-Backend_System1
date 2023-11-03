@@ -8,15 +8,17 @@
 </head>
 <body>
   <div class="wrapper">
-    <form action="#">
+    <form id="login-form" action="#">
       <h2>Login</h2>
         <div class="input-field">
         <input type="text" required>
-        <label>Enter your email</label>
+        <label for="login" id="login-email">Enter your email</label>
+        <span id="email-error" class="text-danger"></span>
       </div>
       <div class="input-field">
-        <input type="password" required>
+        <input id="login-password" type="password" required>
         <label>Enter your password</label>
+        <span id="password-error" class="text-danger"></span>
       </div>
       <div class="forget">
         <label for="remember">
@@ -32,5 +34,6 @@
       </div>
     </form>
   </div>
+  <script src="../dist/login.js"></script>
 </body>
 </html>

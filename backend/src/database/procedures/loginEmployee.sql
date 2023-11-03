@@ -2,6 +2,6 @@ CREATE OR ALTER PROCEDURE loginEmployee(@email VARCHAR(200), @password VARCHAR(2
 AS
 BEGIN
 
-    SELECT * FROM Employees WHERE email= @email
+    SELECT * FROM Employees WHERE email= @email 
 
 END

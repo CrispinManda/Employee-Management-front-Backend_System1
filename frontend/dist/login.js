@@ -62,10 +62,11 @@ login_form.addEventListener('submit', (e) => {
                 console.log(data['info']);
                 if (data['info'].role === 'employee') {
                     localStorage.setItem('user_email', data['info'].email);
-                    location.href = 'employee.html';
+                    location.href = '/frontend/User_dash/project-list.html';
                 }
                 else if (data['info'].role === 'admin') {
                     localStorage.setItem('user_email', data['info'].email);
+                    // location.href = '/frontend/Admin_dash/index.html';
                     location.href = 'admin.html';
                 }
             });

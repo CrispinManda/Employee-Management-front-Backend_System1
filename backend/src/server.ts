@@ -3,6 +3,7 @@ import cors from 'cors'
 import employee_router from './routes/employeeRoutes'
 
 const app = express()
+
 app.use(cors())
 app.use(json())
 
