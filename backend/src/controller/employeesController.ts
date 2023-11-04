@@ -121,3 +121,27 @@ export const checkUserDetails = async (req:ExtendedEmployee, res:Response)=>{
         })
     }
 }
+
+export const viewAssignedProjects = async (req: ExtendedEmployee, res: Response) => {
+    try {
+        
+        const userId = req.info?.employee_id;
+
+        const pool = await mssql.connect(sqlConfig);
+
+       
+        const result = await pool.request()
+            .input('userId', mssql.Int, userId)
+            .query('SELECT * FROM Projects WHERE userId = @userId');
+
+        const assignedProjects = result.recordset;
+
+        if (assignedProjects.length === 0) {
+            return res.status(404).json({ message: 'No projects assigned' });
+        }
+
+        return res.status(200).json({ assignedProjects });
+    } catch (error) {
+        return res.status(500).json({ message: 'Internal Server Error' });
+    }
+};

@@ -12,45 +12,44 @@ import {Employee} from '../interfaces/employee';
  * @param res - Request as Response
  * @returns 
  */
-export const createProject = async(req:customProject, res:Response)=>{
+export const createProject = async (req: customProject, res: Response) => {
     try {
-    
-        const {projectName, description, endDate, userId}= req.body;
-        
-        const {error, value} = taskValidator.validate(req.body);
-        if(error){            
+        const { projectName, description, endDate, userId } = req.body;
+
+        const { error, value } = taskValidator.validate(req.body);
+        if (error) {
             return res.status(400).json({
-                message:error.details[0].message
-            })
+                message: error.details[0].message
+            });
         }
 
-        const pool = await mssql.connect(sqlConfig)
-        if(pool.connected){
+        const pool = await mssql.connect(sqlConfig);
+        if (pool.connected) {
             console.info("db connected");
-            
         }
-        await pool.request()
+
+        const request = pool.request();
+        request.input('projectName', mssql.VarChar, projectName);
+        request.input('description', mssql.VarChar, description);
+        request.input('deadline', mssql.VarChar, endDate);
+        request.input('userId', mssql.VarChar, userId);
+
         
-        .input('projectName', mssql.VarChar, projectName)
-        .input('description', mssql.VarChar, description)
-        .input('deadline', mssql.VarChar, endDate)
-        .input('userId', mssql.VarChar, userId)
-        .execute('createTask')
+        await request.query('INSERT INTO Projects (projectName, description, deadline, userId, status) VALUES (@projectName, @description, @deadline, @userId, 0)');
 
-        return res.json({message:"Project created successfully..." })
-
+        return res.json({ message: "Project created successfully..." });
     } catch (error) {
-        if (error instanceof RequestError)
-           return res.status(404).json({
-                message:'Project Exists.'
-            })
-        
-        return res.status(500).json({
-            message:'Internal Server Error.'
-        })
-    }
-}
+        if (error instanceof RequestError) {
+            return res.status(404).json({
+                message: 'Project Exists.'
+            });
+        }
 
+        return res.status(500).json({
+            message: 'Internal Server Error.'
+        });
+    }
+};
 //=========DELETING PROJECTS ===============//
 /**
  * 
@@ -59,101 +58,125 @@ export const createProject = async(req:customProject, res:Response)=>{
  * @returns deletes projects.
  */
 
-export const projectDelete = async(req:customProject, res:Response)=>{
+export const projectDelete = async (req: customProject, res: Response) => {
     try {
-        const {projectId}=req.body
+        const { projectId } = req.body;
 
-        const pool = await mssql.connect(sqlConfig)
-        await pool.request()
-        .input('projectId',mssql.VarChar, projectId)
-        .execute('deleteProject')
+        const pool = await mssql.connect(sqlConfig);
+        const request = pool.request();
 
-        return res.json({message: `PROJECT ${projectId} deleted`}) 
-    } catch (error) {
-        console.log(error);
         
-        if(error instanceof RequestError){
+        request.input('projectId', mssql.Int, projectId);
+
+        
+        await request.query('DELETE FROM Projects WHERE projectId = @projectId');
+
+        return res.json({ message: `Project ${projectId} deleted` });
+    } catch (error) {
+        if (error instanceof mssql.RequestError) {
             return res.status(404).json({
-                message:"No Task With That ID."
-            })
+                message: 'No project with that ID.'
+            });
+        } else {
+            return res.status(500).json({
+                message: 'Internal Server Error.'
+            });
         }
     }
-}
+};
 
-export const projectAssign = async(req:customProject, res:Response)=>{
+export const projectAssign = async (req: customProject, res: Response) => {
     try {
-        const {projectId, userId} = req.body;
+        const { projectId, userId } = req.body;
 
-        const{error, value} = projectUserSchema.validate(req.body)
-        if(error){
-            res.status(400).json({
+        const { error, value } = projectUserSchema.validate(req.body);
+        if (error) {
+            return res.status(400).json({
                 message: error.details[0].message
-            })
+            });
         }
+
         const pool = await mssql.connect(sqlConfig);
+        const request = pool.request();
 
-        await pool.request()
-        .input('projectId', mssql.VarChar, projectId)
-        .input('userId', mssql.VarChar, userId)
-        .execute('assignProject');
-
-        res.json({message: `User ${userId} assigned to project ${projectId}`})
-    } catch (error) {
-        if (error instanceof RequestError){
-            res.status(400).json({
-                message:error.message
-            })
-        }
-
-    }
-}
-
-export const homePage = async(req:ExtendedEmployee, res:Response)=>{
-    try {
-    if (req.info){
-        return res.json({message:"welcome to the homepage"})
-    }    
-    } catch (error) {
-        console.log(error);
         
-    }   
-}
+        request.input('projectId', mssql.Int, projectId);
+        request.input('userId', mssql.Int, userId);
 
+       
+        await request.query('UPDATE Projects SET userId = @userId WHERE projectId = @projectId');
 
-export const checkUserRole = async(req:ExtendedEmployee, res:Response)=>{
-    if (req.info){
-        res.json({email: req.info.email , role: req.info.role, userId: req.info.employee_id})
+        return res.json({ message: `User ${userId} assigned to project ${projectId}` });
+    } catch (error) {
+        if (error instanceof mssql.RequestError) {
+            return res.status(400).json({
+                message: 'Error assigning project to user.'
+            });
+        } else {
+            return res.status(500).json({
+                message: 'Internal Server Error.'
+            });
+        }
     }
-}
+};
 
-export const pendingProjects = async (req:customProject, res:Response)=>{
+
+export const homePage = async (req: ExtendedEmployee, res: Response) => {
+    try {
+        if (req.info) {
+            return res.status(200).json({ message: 'Welcome to the homepage' });
+        } else {
+            return res.status(401).json({ message: 'Unauthorized' });
+        }
+    } catch (error) {
+        return res.status(500).json({ message: 'Internal Server Error' });
+    }
+};
+
+
+export const checkUserRole = async (req: ExtendedEmployee, res: Response) => {
+    try {
+        if (req.info) {
+            const { email, role, employee_id } = req.info; 
+
+            return res.status(200).json({ email, role, employee_id });
+        } else {
+            return res.status(401).json({ message: 'Unauthorized' });
+        }
+    } catch (error) {
+        return res.status(500).json({ message: 'Internal Server Error' });
+    }
+};
+
+
+export const pendingProjects = async (req: customProject, res: Response) => {
     try {
         const pool = await mssql.connect(sqlConfig);
 
-        const project: Project[]= await(
-        await pool.request()
-        .execute('pendingProjects')).recordset
+        
+        const result = await pool.request().query('SELECT * FROM Projects WHERE status = 0'); // Assuming status 0 represents pending projects
 
-        res.status(200).json({
-            project
-        })
+        const projects = result.recordset; 
+
+        return res.status(200).json({ projects });
     } catch (error) {
-        error
+        return res.status(500).json({ message: 'Internal Server Error' });
     }
-}
+};
 
-export const completeProjects = async (req:customProject, res:Response)=>{
+
+
+export const completeProjects = async (req: customProject, res: Response) => {
     try {
-        const pool = await mssql.connect(sqlConfig)
+        const pool = await mssql.connect(sqlConfig);
 
-        const projectcomplete:Project[] = await(
-        await pool.request()
-        .execute('completeProjects')).recordset
+        
+        const result = await pool.request().query('SELECT * FROM Projects WHERE status = 1'); // Assuming status 1 represents completed projects
 
-        res.status(200).json({
-            projectcomplete
-        })
+        const projects = result.recordset; 
+
+        return res.status(200).json({ projects });
     } catch (error) {
-        error
+        return res.status(500).json({ message: 'Internal Server Error' });
     }
-}
+};
