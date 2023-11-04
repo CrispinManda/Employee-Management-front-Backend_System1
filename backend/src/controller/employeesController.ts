@@ -63,7 +63,7 @@ export const loginEmployee = async(req:Request, res: Response) =>{
             }
 
             const LoginCredentials = user.map(records =>{
-                const {phone_no, id_no, KRA_PIN, password, NSSF_NO, NHIF_NO, welcomed, ...rest}=records
+                const { ...rest}=records
 
                 return rest
             })
@@ -72,7 +72,7 @@ export const loginEmployee = async(req:Request, res: Response) =>{
 
             // dotenv.config()
             const token = jwt.sign(LoginCredentials[0], process.env.SECRET as string, {
-                expiresIn: '3600s'
+                expiresIn: '1hr'
             })
 
             return res.status(200).json({
