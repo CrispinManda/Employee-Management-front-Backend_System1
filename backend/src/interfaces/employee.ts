@@ -11,3 +11,7 @@ export interface LoginEmployee extends Request{
     email: string,
     password: string
 }
+
+export interface userInfo extends Employee{
+    userinfo?:Employee;
+}
