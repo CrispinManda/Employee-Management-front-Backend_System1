@@ -1,8 +1,7 @@
 
-
 DROP TABLE Employees
 
-SELECT * FROM Employees
+-- select * from Employees
 
 CREATE TABLE Employees (
     employee_id VARCHAR(100) NOT NULL ,
