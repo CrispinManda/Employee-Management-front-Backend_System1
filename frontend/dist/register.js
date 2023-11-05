@@ -8,7 +8,7 @@ let email = document.getElementById('email');
 // let nssf = document.getElementById('nssf') as HTMLInputElement
 let password = document.getElementById('password');
 let confirm_password = document.getElementById('confirm_password');
-console.log(full_name, email, password, confirm_password);
+// console.log(full_name, email, password, confirm_password);
 let reg_form = document.getElementById('registration-form');
 reg_form.addEventListener('submit', (event) => {
     event.preventDefault();
