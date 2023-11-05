@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const projectModal = document.querySelector('#projectModal') as HTMLElement;
   const closeModalButton = document.querySelector('#closeModalButton') as HTMLElement;
   const saveProjectButton = document.querySelector('#saveProjectButton') as HTMLElement;
+  const projosDiv = document.querySelector('.projos') as HTMLElement;
 
   addProjectButton.addEventListener('click', () => {
     projectModal.style.display = 'block';
@@ -22,15 +23,13 @@ document.addEventListener('DOMContentLoaded', function () {
     const completionDate = completionDateInput.value;
 
     if (projectName.trim() !== '') {
-
+   
       const projectElement = document.createElement('div');
       projectElement.className = 'project';
       projectElement.innerHTML = `<strong>${projectName}</strong><br>${projectDescription}<br>Completion Date: ${completionDate}`;
 
-      const projosDiv = document.querySelector('.projos') as HTMLElement;
       projosDiv.appendChild(projectElement);
 
-  
       projectModal.style.display = 'none';
     } else {
       alert('Please enter a project name.');

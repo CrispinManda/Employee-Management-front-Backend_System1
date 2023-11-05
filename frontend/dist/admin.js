@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const projectModal = document.querySelector('#projectModal');
     const closeModalButton = document.querySelector('#closeModalButton');
     const saveProjectButton = document.querySelector('#saveProjectButton');
+    const projosDiv = document.querySelector('.projos');
     addProjectButton.addEventListener('click', () => {
         projectModal.style.display = 'block';
     });
@@ -22,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const projectElement = document.createElement('div');
             projectElement.className = 'project';
             projectElement.innerHTML = `<strong>${projectName}</strong><br>${projectDescription}<br>Completion Date: ${completionDate}`;
-            const projosDiv = document.querySelector('.projos');
+            // Append the project element to the projos div
             projosDiv.appendChild(projectElement);
             // Close the modal
             projectModal.style.display = 'none';
