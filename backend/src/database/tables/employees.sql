@@ -12,3 +12,5 @@ CREATE TABLE Employees (
     welcomed BIT Default 0
 ) 
 
+SELECT * FROM Employees WHERE email='emmanuel@gmail.com'
+UPDATE Employees SET role = 'admin' WHERE email = 'emmanuel@gmail.com'
