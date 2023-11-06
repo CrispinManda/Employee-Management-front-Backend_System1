@@ -13,7 +13,7 @@ POST http://localhost:4400/employee/login
 Content-Type: application/json
 
 {
-    "email": "emanuel@yopmail.com",
+    "email": "crispinmanda06@gmail.com",
     "password": "12345678"
 }
 
@@ -73,7 +73,16 @@ Content-Type: application/json
     "projectId":"3"
 }
 
-
+###
+//CREATING A PROJECT
+POST http://localhost:4400/projects/create
+Content-Type: application/json
+{
+    "projectName":"Hello",
+    "description":"Driving",
+    "endDate":"2023-12-27",
+    "userId":"2"
+}
 
 ## CHECK ASSIGNED PROJECT
 ###
