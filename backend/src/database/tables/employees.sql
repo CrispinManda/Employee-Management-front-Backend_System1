@@ -1,8 +1,7 @@
 
-
 DROP TABLE Employees
 
-SELECT * FROM Employees
+-- select * from Employees
 
 CREATE TABLE Employees (
     employee_id VARCHAR(100) NOT NULL ,
@@ -13,3 +12,5 @@ CREATE TABLE Employees (
     welcomed BIT Default 0
 ) 
 
+SELECT * FROM Employees WHERE email='emmanuel@gmail.com'
+UPDATE Employees SET role = 'admin' WHERE email = 'emmanuel@gmail.com'
