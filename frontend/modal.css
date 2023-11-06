@@ -25,4 +25,22 @@
     top: 5px;
     cursor: pointer;
   }
+
+
+
+  /* projos */
+.projos {
+    padding: 10px;
+  }
+  
+  .project {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px; 
+  }
+  
+  .project + .project {
+    border-top: 1px solid #ccc; 
+  }
+  
   

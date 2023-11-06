@@ -19,13 +19,10 @@ document.addEventListener('DOMContentLoaded', function () {
         const projectDescription = projectDescriptionInput.value;
         const completionDate = completionDateInput.value;
         if (projectName.trim() !== '') {
-            // Create a new project element
             const projectElement = document.createElement('div');
             projectElement.className = 'project';
             projectElement.innerHTML = `<strong>${projectName}</strong><br>${projectDescription}<br>Completion Date: ${completionDate}`;
-            // Append the project element to the projos div
             projosDiv.appendChild(projectElement);
-            // Close the modal
             projectModal.style.display = 'none';
         }
         else {
