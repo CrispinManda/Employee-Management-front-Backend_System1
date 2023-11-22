@@ -19,9 +19,76 @@ Content-Type: application/json
 
 ### fetching employees
 GET http://localhost:4400/employee/
-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZV9pZCI6IjU2NDRiNzQ3LTZhMGQtNGE1Yi05YzZjLTI3ZjkyNjJmMjgxNSIsIm5hbWUiOiJDcmlzcGluIE1hbmRhIiwiZW1haWwiOiJjcmlzcGlubWFuZGEwNkBnbWFpbC5jb20iLCJyb2xlIjoiZW1wbG95ZWUiLCJpYXQiOjE2OTg4NzE4ODAsImV4cCI6MTY5ODg3NTQ4MH0.0iVYOsqGKLLKGHxU2Qv0bIiCdHxmk9w-BHHGQp3Vero
-
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZV9pZCI6Ijc5OWRiY2Q4LWE2ZjUtNDQwZC05MjlkLTBhMDE2YWIwMjAzMSIsIm5hbWUiOiJFbW1hbnVlbCBLcCIsImVtYWlsIjoiZW1hbnVlbEB5b3BtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJiJDA1JFkwUTFhWVJXMGNDcmx1ZWJMSGFuUy51MW5XTWxLLmpmeVp3NjVMV1IvVTVGeTk4M0ZuSWdHIiwicm9sZSI6ImVtcGxveWVlIiwid2VsY29tZWQiOmZhbHNlLCJpYXQiOjE2OTkxODcxNDEsImV4cCI6MTY5OTE5MDc0MX0.M1HKPg7DSNSvAF0an_hvN4fwlsuvLdJ8LO4ulg-Y52Y
 
 ### checking user details
 GET http://localhost:4400/employee/check_user_details
-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZV9pZCI6IjU2NDRiNzQ3LTZhMGQtNGE1Yi05YzZjLTI3ZjkyNjJmMjgxNSIsIm5hbWUiOiJDcmlzcGluIE1hbmRhIiwiZW1haWwiOiJjcmlzcGlubWFuZGEwNkBnbWFpbC5jb20iLCJyb2xlIjoiZW1wbG95ZWUiLCJpYXQiOjE2OTg4NzIxMDMsImV4cCI6MTY5ODg3NTcwM30.ODy8sm_bp9qH8r0QCQZZ_t0ia0YGNBiXCfUMq0MsekM
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZV9pZCI6Ijc5OWRiY2Q4LWE2ZjUtNDQwZC05MjlkLTBhMDE2YWIwMjAzMSIsIm5hbWUiOiJFbW1hbnVlbCBLcCIsImVtYWlsIjoiZW1hbnVlbEB5b3BtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJiJDA1JFkwUTFhWVJXMGNDcmx1ZWJMSGFuUy51MW5XTWxLLmpmeVp3NjVMV1IvVTVGeTk4M0ZuSWdHIiwicm9sZSI6ImVtcGxveWVlIiwid2VsY29tZWQiOmZhbHNlLCJpYXQiOjE2OTkxODcxNDEsImV4cCI6MTY5OTE5MDc0MX0.M1HKPg7DSNSvAF0an_hvN4fwlsuvLdJ8LO4ulg-Y52Y
+
+
+### assign user Project
+POST http://localhost:4400/projects/assignProject
+Content-Type: application/json
+token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZV9pZCI6IjU2NDRiNzQ3LTZhMGQtNGE1Yi05YzZjLTI3ZjkyNjJmMjgxNSIsIm5hbWUiOiJDcmlzcGluIE1hbmRhIiwiZW1haWwiOiJjcmlzcGlubWFuZGEwNkBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYiQwNSRyUmdzN1RaRmdJV3AzaVJXTEF6T3h1WTNkbzZwZlVmbkRHRnJyMUczWU43NkROcXRhVi5ZMiIsInJvbGUiOiJhZG1pbiIsIndlbGNvbWVkIjp0cnVlLCJpYXQiOjE2OTkxMzA0ODIsImV4cCI6MTY5OTEzNDA4Mn0.Uqhtchx4Qw6OaiQICFc-tCgf8tUn6LG7R-Nrxf4t-ZQ
+
+{
+    "projectId":"1",
+    "userId":"4"
+}
+
+//CHECKING COMPLETE PROJECTS
+###
+POST http://localhost:4400/projects/completeProjects
+Content-Type: application/json
+
+# CHECKING PENDING PROJECTS
+###
+POST http://localhost:4400/projects/pendingProjects
+Content-Type: application/json
+
+//CHECKUSER profile
+###
+GET http://localhost:4400/projects/check
+Content-Type: application/json
+token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZV9pZCI6Ijc5OWRiY2Q4LWE2ZjUtNDQwZC05MjlkLTBhMDE2YWIwMjAzMSIsIm5hbWUiOiJFbW1hbnVlbCBLcCIsImVtYWlsIjoiZW1hbnVlbEB5b3BtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJiJDA1JFkwUTFhWVJXMGNDcmx1ZWJMSGFuUy51MW5XTWxLLmpmeVp3NjVMV1IvVTVGeTk4M0ZuSWdHIiwicm9sZSI6ImVtcGxveWVlIiwid2VsY29tZWQiOmZhbHNlLCJpYXQiOjE2OTkxODcxNDEsImV4cCI6MTY5OTE5MDc0MX0.M1HKPg7DSNSvAF0an_hvN4fwlsuvLdJ8LO4ulg-Y52Y
+
+
+//DELETING A PROJECT/
+###
+POST http://localhost:4400/projects/delete
+Content-Type: application/json
+
+{
+    "projectId":"1"
+}
+
+
+
+// SET PROJECT AS COMPLETED/
+###
+POST http://localhost:4400/employee/setDone
+Content-Type: application/json
+
+{
+    "projectId":"3"
+}
+
+###
+//CREATING A PROJECT
+POST http://localhost:4400/projects/create
+Content-Type: application/json
+{
+    "projectName":"Hello",
+    "description":"Driving",
+    "endDate":"2023-12-27",
+    "userId":"2"
+}
+
+## CHECK ASSIGNED PROJECT
+###
+# GET http://localhost:4400/projects/assigned-projects
+# Content-Type: application/json
+# token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZV9pZCI6Ijc5OWRiY2Q4LWE2ZjUtNDQwZC05MjlkLTBhMDE2YWIwMjAzMSIsIm5hbWUiOiJFbW1hbnVlbCBLcCIsImVtYWlsIjoiZW1hbnVlbEB5b3BtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJiJDA1JFkwUTFhWVJXMGNDcmx1ZWJMSGFuUy51MW5XTWxLLmpmeVp3NjVMV1IvVTVGeTk4M0ZuSWdHIiwicm9sZSI6ImVtcGxveWVlIiwid2VsY29tZWQiOmZhbHNlLCJpYXQiOjE2OTkxNzg1NjcsImV4cCI6MTY5OTE4MjE2N30.3kNNJk2ND-rOnsrRaH5DE4rLsZ2Xh2e7jE6dgzdtQII
+# ###
+#  GET http://localhost:4400/projects/:2/complete
+# Content-Type: application/json
